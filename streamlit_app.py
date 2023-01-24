@@ -2,7 +2,7 @@
 import streamlit as st
 import time
 
-st.title('Algo-**:blue[Rhythm]** 🎷')
+st.title('_Algo_-**:blue[_Rhythm_]** 🎷')
 st.sidebar.header('Algo List')
 
 # Using object notation
