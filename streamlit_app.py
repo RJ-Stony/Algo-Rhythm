@@ -67,7 +67,8 @@ print(dijkstra(graph, start)[end])'''
         
     st.header('Floyd Warshall')
     with st.expander('Source'):
-        code='''INF = int(1e9)
+        code='''# Set 1 billion to mean INF
+INF = int(1e9)
 
 n = int(input())
 m = int(input())
