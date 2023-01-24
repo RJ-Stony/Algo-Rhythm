@@ -4,13 +4,7 @@ import time
 
 # Using object notation
 add_selectbox = st.sidebar.selectbox(
-    "How would you like to be contacted?",
-    ("Email", "Home phone", "Mobile phone")
+    'Which algorithm do you want?',
+    ('DP, Dynamic Programming', 'Greedy', 'Brute Forcing', 'Sorting',
+     'Binary Search', 'BFS, Breadth First Search', 'DFS, Depth First Search')
 )
-
-# Using "with" notation
-with st.sidebar:
-    add_radio = st.radio(
-        "Choose a shipping method",
-        ("Standard (5-15 days)", "Express (2-5 days)")
-    )
