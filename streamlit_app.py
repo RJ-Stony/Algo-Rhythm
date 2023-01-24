@@ -1,7 +1,10 @@
 # main.py
 import streamlit as st
 
-if st.button('CCW'):
-  st.write('It is CCW')
-elif st.button('Greedy'):
-  st.write('It is Greedy')
+with st.sidebar:
+    with st.echo():
+        st.write("This code will be printed to the sidebar.")
+
+    with st.spinner("Loading..."):
+        time.sleep(5)
+    st.success("Done!")
