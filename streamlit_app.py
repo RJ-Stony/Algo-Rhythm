@@ -16,6 +16,7 @@ if add_selectbox == 'Shortest Path':
     col1, col2, col3 = st.columns(3)
     
     with col1:
+        st.header('DIJKSTRA')
         with st.expander('DIJKSTRA'):
             code = '''def hello():
             print("Hello, Streamlit!")'''
