@@ -1,5 +1,6 @@
 # main.py
 import streamlit as st
+import time
 
 with st.sidebar:
     with st.echo():
