@@ -15,30 +15,40 @@ add_selectbox = st.sidebar.selectbox(
 if add_selectbox == 'Shortest Path':
     st.header('Dijkstra')
     with st.expander('Source'):
-        code = '''import heapq # 우선순위 큐 구현을 위함
+        code = '''# To implement a priority queue.
+import heapq 
 
 def dijkstra(graph, start):
-    distances = {node: float('inf') for node in graph} # start로 부터의 거리 값을 저장하기 위함
-    distances[start] = 0 # 시작 값은 0이어야 함
+    # To save the distance value from start.
+    distances = {node: float('inf') for node in graph}
+    distances[start] = 0 # Start value must be 0
     q = []
-    heapq.heappush(q, [distances[start], start]) # 시작 노드부터 탐색 시작 하기 위함.
+    
+    # To start the search from the start node.
+    heapq.heappush(q, [distances[start], start]) 
 
     while q:
-        cur_dis, cur_des = heapq.heappop(q) # 탐색 할 노드, 거리를 가져옴.
-
-        if distances[cur_des] < cur_dis: # 기존에 있는 거리보다 길다면, 볼 필요도 없음
+        # Get the node to explore, the distance.
+        cur_dis, cur_des = heapq.heappop(q)
+        
+        # If it's longer than the existing distance, you don't even need to look.
+        if distances[cur_des] < cur_dis: 
             continue
         
         for new_des, new_dis in graph[cur_des].items():
-            dis = cur_dis + new_dis # 해당 노드를 거쳐 갈 때 거리
-            if dis < distances[new_des]: # 알고 있는 거리 보다 작으면 갱신
+            # Distance when going through that node
+            dis = cur_dis + new_dis
+            
+            # Update if less than known distance.
+            if dis < distances[new_des]: 
                 distances[new_des] = dis
-                heapq.heappush(q, [dis, new_des]) # 다음 인접 거리를 계산 하기 위해 큐에 삽입
+                # Insert into queue to calculate next neighbor distance
+                heapq.heappush(q, [dis, new_des])
             
     return distances
 
-n=int(input())
-m=int(input())
+n = int(input())
+m = int(input())
 graph = dict()
 for i in range(n+1):
     graph[i] = {}
@@ -88,52 +98,52 @@ for a in range(1, n+1):
 
     st.header('Bellman Ford')
     with st.expander('Source'):
-        code='''# 벨만 포드 알고리즘 소스코드
-INF = int(1e9) # 무한을 의미하는 값으로 10억을 설정
+        code='''# Set 1 billion to mean INF
+INF = int(1e9)
 
-def bf(start):
-    # 시작 노드에 대해서 초기화
+def bfs(start):
+    # Initialize on the start node.
     dist[start] = 0
-    # 전체 n번의 라운드(round)를 반복
+    # Repeat all n rounds.
     for i in range(n):
-        # 매 반복마다 "모든 간선"을 확인하며
+        # Every iteration it checks all edges
         for j in range(m):
             cur = edges[j][0]
             next_node = edges[j][1]
             cost = edges[j][2]
-            # 현재 간선을 거쳐서 다른 노드로 이동하는 거리가 더 짧은 경우
+            # If the distance to another node via the current edge is shorter
             if dist[cur] != INF and dist[next_node] > dist[cur] + cost:
                 dist[next_node] = dist[cur] + cost
-                # n번째 라운드에서도 값이 갱신된다면 음수 순환이 존재
+                # If the value is updated even in the nth round, there is a negative cycle.
                 if i == n - 1:
                     return True
     return False
 
-# 노드의 개수, 간선의 개수를 입력받기
+# Get the number of nodes and the number of edges.
 n, m = map(int, input().split())
-# 모든 간선에 대한 정보를 담는 리스트 만들기
+# Create a list containing information about all edges.
 edges = []
-# 최단 거리 테이블을 모두 무한으로 초기화
+# Initialize all shortest distance tables to INF.
 dist = [INF] * (n + 1)
 
-# 모든 간선 정보를 입력받기
+# Get all edge information input.
 for _ in range(m):
     a, b, c = map(int, input().split())
-    # a번 노드에서 b번 노드로 가는 비용이 c라는 의미
+    # This means that the cost of going from node a to node b is c.
     edges.append((a, b, c))
 
-# 벨만 포드 알고리즘을 수행
-negative_cycle = bf(1)  # 1번 노드가 시작 노드
+# Perform Bellman Ford Algorithm.
+negative_cycle = bfs(1) # Node 1 is the starting node
 
 if negative_cycle:
     print(-1)
 else:
-    # 1번 노드를 제외한 다른 모든 노드로 가기 위한 최단 거리 출력
+    # Output the shortest distance to go to all other nodes except node 1.
     for i in range(2, n+1):
-        # 도달할 수 없는 경우, -1을 출력
+        # Output -1 if unreachable.
         if dist[i] == INF:
             print(-1)
-        # 도달할 수 있는 경우 거리를 출력
+        # Output distance if reachable.
         else:
             print(dist[i])'''
         st.code(code, language='python')
