@@ -13,12 +13,9 @@ add_selectbox = st.sidebar.selectbox(
 )
 
 if add_selectbox == 'Shortest Path':
-    col1, col2, col3 = st.columns(3)
-    
-    with col1:
-        st.header('DIJKSTRA')
-        with st.expander('Source'):
-            code = '''import heapq    # 우선순위 큐 구현을 위함
+    st.header('DIJKSTRA')
+    with st.expander('Source'):
+        code = '''import heapq    # 우선순위 큐 구현을 위함
 
 def dijkstra(graph, start):
     distances = {node: float('inf') for node in graph}    # start로 부터의 거리 값을 저장하기 위함
@@ -56,12 +53,10 @@ for _ in range(m):
 
 start, end = map(int, input().split())
 print(dijkstra(graph, start)[end])'''
-            st.code(code, language='python')
+        st.code(code, language='python')
+        
+    st.header('Floyd Warshall')
+    st.button('This is Floyd Warshall')
 
-    with col2:
-        st.header('Floyd Warshall')
-        st.button('This is Floyd Warshall')
-
-    with col3:
-        st.header('Bellman Ford')
-        st.button('This is Bellman Ford')
+    st.header('Bellman Ford')
+    st.button('This is Bellman Ford')
