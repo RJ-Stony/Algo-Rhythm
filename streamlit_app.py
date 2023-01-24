@@ -13,7 +13,7 @@ add_selectbox = st.sidebar.selectbox(
 )
 
 if add_selectbox == 'Shortest Path':
-    st.header('DIJKSTRA')
+    st.header('Dijkstra')
     with st.expander('Source'):
         code = '''import heapq # 우선순위 큐 구현을 위함
 
